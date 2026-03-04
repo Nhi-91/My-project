@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusFlow+</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="card">
+      <div class="topbar">
+        <div>
+          <h1>FocusFlow+</h1>
+          <p class="subtitle">Adaptive study rhythm with mood-based motivation.</p>
+        </div>
+        <nav class="nav">
+          <a class="navlink active" href="/">Timer</a>
+          <a class="navlink" href="/dashboard">Dashboard</a>
+          <a class="navlink" href="/history">History</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="card" id="sessionCard">
+      <div class="row">
+        <div class="field">
+          <label for="mood">Mood</label>
+          <select id="mood">
+            <option value="ok">OK</option>
+            <option value="tired_eyes">Tired eyes</option>
+            <option value="down">Feeling down</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="studyMinutes">Study minutes</label>
+          <input id="studyMinutes" type="number" min="5" max="60" value="20" />
+        </div>
+
+        <div class="field">
+          <label for="breakMinutes">Break minutes</label>
+          <input id="breakMinutes" type="number" min="3" max="20" value="5" />
+        </div>
+
+        <div class="actions">
+          <button id="btnSuggest" class="btn secondary">Suggest</button>
+          <button id="btnStart" class="btn">Start</button>
+          <button id="btnStop" class="btn danger" disabled>Stop</button>
+          <button id="btnReset" class="btn secondary">Reset counters</button>
+        </div>
+      </div>
+
+      <div class="timer">
+        <div id="phase" class="phase">Ready</div>
+        <div id="time" class="time">20:00</div>
+        <div id="message" class="message">Pick a mood and start a session.</div>
+      </div>
+
+      <div class="mini">
+        <div class="mini-item">
+          <span class="mini-label">Cycle</span>
+          <span id="cycleInfo" class="mini-value">20 / 5</span>
+        </div>
+        <div class="mini-item">
+          <span class="mini-label">Completed today</span>
+          <span id="completedToday" class="mini-value">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>How it adapts</h2>
+      <p class="subtitle">
+        Suggest adapts after you have at least 6 sessions of history.
+        If you often stop early, it suggests 15 minutes.
+        If you consistently finish, it suggests 25 minutes.
+      </p>
+      <ul>
+        <li>For tired eyes: consider the 20-20-20 rule during breaks.</li>
+        <li>Consistency wins: small sessions add up.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite">
+    <p id="toastTitle" class="toast-title">FocusFlow+</p>
+    <p id="toastBody" class="toast-body">You got this.</p>
+  </div>
+
+  <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div class="modal-icon" aria-hidden="true">!</div>
+        <div>
+          <p id="modalTitle" class="modal-title">Quick check-in</p>
+          <p id="modalSubtitle" class="modal-subtitle">A small suggestion before you start.</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <p id="modalBodyText" class="modal-text">
+          You chose a very short study session. Continue anyway?
+        </p>
+      </div>
+
+      <div class="modal-actions">
+        <button id="modalPrimary" class="btn">Continue anyway</button>
+        <button id="modalSecondary" class="btn secondary">Adjust time</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/timer.js"></script>
+</body>
+</html>
